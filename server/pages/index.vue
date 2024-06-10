@@ -1,34 +1,32 @@
 <template>
-    <div>
-      <navbar/>
+    <div class="app">
+      <navbar class="navbar"/>
+      <div class="main"></div>
     </div>
 </template>
 
 <script setup>
 import navbar from '~/components/navbar/navbar.vue';
-const userInfo = useNuxtData('userInfo');
-import { googleAuthCodeLogin  } from 'vue3-google-login'
-
-const runtimeConfig = useRuntimeConfig()
-const { googleClientId: GOOGLE_CLIENT_ID } = runtimeConfig.public
-
-
-const handleGoogleLogin = async () => {
-  const authCode = await googleAuthCodeLogin({
-    clientId: GOOGLE_CLIENT_ID
-  }).then((response) => {console.log(response); return response?.code})
-  if (!authCode) {
-    console.warn('登入失敗'); 
-  }
-
-  const { data } = await useFetch('/api/auth/google/oauth', {
-    method: 'POST',
-    body: {
-        authCode
-    },
-    initialCache: false
-  })
-
-  userInfo.value = data.value
-}
 </script>
+
+<style scoped>
+.app{
+  height: 100dvh;
+  width: 100dvw;
+  margin: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start
+}
+
+.navbar{
+  height: 70px;
+  width: 100%;
+}
+
+.main{
+  height: 100%;
+  width: 100%;
+}
+</style>

@@ -1,5 +1,6 @@
 <script setup>
 import { googleAuthCodeLogin  } from 'vue3-google-login'
+import AppData from './AppData';
 
 const nuxtApp = useNuxtApp()
 const runtimeConfig = useRuntimeConfig()
@@ -20,7 +21,8 @@ const handleGoogleLogin = async () => {
     },
     initialCache: false
   })
-  useAsyncData('userInfo', ()=> data);
+  AppData.getInstance().userInfo.email = data.value.email;
+  AppData.getInstance().userInfo.name = data.value.name;
   useRouter().replace(useRoute().query['redirect_uri']);
 }
 </script>

@@ -1,3 +1,5 @@
+import AppData from "~/pages/AppData";
+
 export default defineNuxtRouteMiddleware(async (from, to) => {
     try{
         const google_access_token = useCookie('google_access_token');
@@ -11,7 +13,8 @@ export default defineNuxtRouteMiddleware(async (from, to) => {
             useRouter().replace('/login?redirect_uri='+from.fullPath);
           }
           else{
-            await useAsyncData('userInfo', () => res.data.value);
+            AppData.getInstance().userInfo.email = res.data.value?res.data.value.email:null;
+            AppData.getInstance().userInfo.name = res.data.value?res.data.value.name:null;
           }
     }
     catch(e){

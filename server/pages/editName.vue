@@ -2,15 +2,18 @@
     <div class="wrapper">
         <input type="text" v-model="name">
         <button @click="saveName">save</button>
-        {{ useNuxtData('userInfo') }}
+        {{ userInfo }}
     </div>
 </template>
 
 <script setup>
+import AppData from './AppData';
+
 definePageMeta({
     middleware: ['auth']
 })
-const name = ref(useNuxtData('userInfo')?.name);
+const userInfo = reactive(AppData.getInstance().userInfo);
+const name = ref(userInfo.name);
 const saveName = async ()=>{
     const res = await useFetch('/api/auth/google/set_user', {
         method: 'POST',
@@ -20,7 +23,7 @@ const saveName = async ()=>{
         }
     })
     if(res.status.value=='success'){
-        useNuxtData('userInfo').name = name.value;
+        userInfo.name = name.value;
     }
 }
 </script>
