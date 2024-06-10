@@ -1,4 +1,4 @@
-export default defineNuxtRouteMiddleware(async to => {
+export default defineNuxtRouteMiddleware(async (from, to) => {
     try{
         const google_access_token = useCookie('google_access_token');
         const res = await useFetch('/api/auth/google/get_user', {
@@ -7,10 +7,16 @@ export default defineNuxtRouteMiddleware(async to => {
                 access_token: google_access_token
             }
           });
-        provide('userInfo', <{name:string, email:string}>res.data.value);
+          if(res.status.value=='error'){
+            useRouter().replace('/login?redirect_uri='+from.fullPath);
+          }
+          else{
+            await useAsyncData('userInfo', () => res.data.value);
+          }
     }
     catch(e){
         console.log(e);
+        useRouter().replace('/login?redirect_uri='+from.fullPath);
     }
 })
   

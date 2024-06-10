@@ -1,17 +1,16 @@
 <script setup>
-const userInfo = ref({})
 import { googleAuthCodeLogin  } from 'vue3-google-login'
 
+const nuxtApp = useNuxtApp()
 const runtimeConfig = useRuntimeConfig()
-const { googleClientId: GOOGLE_CLIENT_ID } = runtimeConfig.public
-
-
+const { googleClientId: GOOGLE_CLIENT_ID } = runtimeConfig.public;
 const handleGoogleLogin = async () => {
   const authCode = await googleAuthCodeLogin({
     clientId: GOOGLE_CLIENT_ID
-  }).then((response) => {console.log(response); return response?.code})
+  }).then((response) => response?.code)
   if (!authCode) {
-    console.warn('登入失敗'); 
+    console.warn('登入失敗');
+    return;
   }
 
   const { data } = await useFetch('/api/auth/google/oauth', {
@@ -21,8 +20,8 @@ const handleGoogleLogin = async () => {
     },
     initialCache: false
   })
-  const { name, email } = data.value;
-  
+  useAsyncData('userInfo', ()=> data);
+  useRouter().replace(useRoute().query['redirect_uri']);
 }
 </script>
 <template>

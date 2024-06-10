@@ -1,14 +1,12 @@
 <template>
     <div>
-        <button type="button" @click="handleGoogleLogin">
-            使用 Google 繼續
-        </button>
-        {{ userInfo }}
+      <navbar/>
     </div>
 </template>
 
 <script setup>
-const userInfo = ref({})
+import navbar from '~/components/navbar/navbar.vue';
+const userInfo = useNuxtData('userInfo');
 import { googleAuthCodeLogin  } from 'vue3-google-login'
 
 const runtimeConfig = useRuntimeConfig()

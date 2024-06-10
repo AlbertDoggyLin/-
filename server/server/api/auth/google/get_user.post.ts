@@ -24,8 +24,8 @@ export default defineEventHandler(async (event) => {
         })
     }
 
-    const email = (<{ email: string }>userInfo).email;
     try {
+        const email = (<{ email: string }>userInfo).email;
         const user = await getUser(email);
         if (!user) throw new Error("user not added to db");
         const name = user.name as string;

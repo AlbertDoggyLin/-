@@ -31,11 +31,7 @@ export default defineEventHandler(async (event) => {
   const email = (<{email:string}>userInfo).email;
 
   let user = await getUser(email);
-  if(!user) user = await addUser(email, access_token);
-  else{
-    user.access_token = access_token;
-    user.save();
-  }
+  if(!user) user = await addUser(email);
   const { name } = user as { name:string };
   setCookie(event, 'google_access_token', access_token);
   return { name, email };

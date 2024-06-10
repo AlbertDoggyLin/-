@@ -11,11 +11,6 @@ const userSchema = new mongoose.Schema({
     type: 'string',
     required: true,
     unique: true
-  },
-  access_token: {
-    type: 'string',
-    required: true,
-    unique: true
   }
 }, {
   versionKey: false
