@@ -22,27 +22,18 @@ catch(e){
 }
 const userInfo = reactive(AppData.getInstance().userInfo);
 const showDropDown = ref(false);
-const dropdown = ref(null);
 const openDropDown = ()=>{
     showDropDown.value=true;
-    requestAnimationFrame(()=>{dropdown.value.wrapper.focus();})
-}
-const checkBlur = ()=>{
-    requestAnimationFrame(()=>{
-        if (!dropdown.value.wrapper.contains(document.activeElement)) {
-            showDropDown.value=false;
-        }
-    })
-    
+    console.log(showDropDown.value);
 }
 </script>
 
 <template>
     <div class="wrapper">
         <NuxtLink to="/">回到主頁</NuxtLink>
+        <Dropdown v-show="showDropDown" @blur="showDropDown=false"></Dropdown>
         <button v-if="userInfo.email" class="name" @click="openDropDown">
             {{ userInfo.name }}
-            <Dropdown v-show="showDropDown" ref="dropdown" @blur="checkBlur"></Dropdown>
         </button>
         <NuxtLink v-else :to="'/login?redirect_uri='+route.fullPath">登入</NuxtLink>
     </div>

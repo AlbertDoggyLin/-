@@ -1,5 +1,5 @@
 <template>
-    <div class="wrapper">
+    <div>
         <input type="text" v-model="name">
         <button @click="saveName">save</button>
         {{ userInfo }}

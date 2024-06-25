@@ -1,21 +1,27 @@
 <script setup>
 const wrapper = ref(null);
-defineExpose({
-    wrapper,
-})
 const logout = ()=>{
     try{
         useCookie('google_access_token').value = null;
         location.reload();
+        wrapper.value.focus();
+        wrapper.value.blur();
     }catch(e){
         console.log(e);
     }
+}
+
+const editName = ()=>{
+    useRouter().push('/editName');
+    wrapper.value.focus();
+    wrapper.value.blur();
+    console.log(document.activeElement);
 }
 </script>
 
 <template>
     <div class="wrapper" tabindex="0" ref="wrapper">
-        <button><NuxtLink to="/editName">改名</NuxtLink></button>
+        <button @click="editName">改名</button>
         <button @click="logout">登出</button>
     </div>
 </template>

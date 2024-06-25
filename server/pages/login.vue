@@ -1,8 +1,6 @@
 <script setup>
 import { googleAuthCodeLogin  } from 'vue3-google-login'
 import AppData from './AppData';
-
-const nuxtApp = useNuxtApp()
 const runtimeConfig = useRuntimeConfig()
 const { googleClientId: GOOGLE_CLIENT_ID } = runtimeConfig.public;
 const handleGoogleLogin = async () => {
@@ -36,8 +34,8 @@ const handleGoogleLogin = async () => {
 
 <style scoped>
 .wrapper{
-    width: 100dvw;
-    height: 100dvh;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

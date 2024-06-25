@@ -1,6 +1,7 @@
 import { OAuth2Client } from 'google-auth-library'
 import { addUser, getUser } from '~/server/db/user'
 
+
 export default defineEventHandler(async (event) => {
     const { access_token } = await readBody(event);
     const oauth2Client = new OAuth2Client({
