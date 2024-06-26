@@ -1,11 +1,11 @@
 <template>
       <div class="wrapper">
         <div class="room-display">
-          <button v-for="(id, idx) in rooms">{{id}}</button>
+          <button v-for="(id) in rooms">{{id}}</button>
         </div>
         <input type="text" v-model="roomNumber"/>
         <button @click="enter">進入球場</button>
-        <button @click="newCourt">創建新球場</button>
+        <button @click="$router.push('/room/create')">創建新球場</button>
       </div>
 </template>
 
@@ -13,8 +13,9 @@
 import { ref } from 'vue';
 const roomNumber = ref('');
 
-const rooms = $fetch('/api/room').then((res)=>{
-  return res.data;
+const rooms = ref([]);
+$fetch('/api/room').then((res)=>{
+  rooms.value = res.data;
 });
 
 const enter = ()=>{
@@ -24,19 +25,6 @@ const enter = ()=>{
     }
     else{
       alert('找不到球場');
-    }
-  });
-}
-
-const newCourt = ()=>{
-  $fetch('/api/room', {
-    method: 'POST'
-  }).then((res)=>{
-    if(res.status=='success'){
-      useRouter().push('/room/'+res.data);
-    }
-    else{
-      alert('創建球場失敗');
     }
   });
 }

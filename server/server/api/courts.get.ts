@@ -11,8 +11,6 @@ export default defineEventHandler(async (event) => {
     })
 
     waiter;
-    return {
-      hello: 'world'
-    }
+    return []
   })
   
