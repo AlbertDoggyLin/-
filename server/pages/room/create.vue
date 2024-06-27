@@ -5,6 +5,8 @@
 
         <label for="courtNumber">Court Number:</label>
         <input type="number" id="courtNumber" v-model="courtNumber">
+
+        <button @click="create">create room</button>
     </div>
 </template>
 

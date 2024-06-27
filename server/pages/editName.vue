@@ -15,7 +15,7 @@ definePageMeta({
 const userInfo = reactive(AppData.getInstance().userInfo);
 const name = ref(userInfo.name);
 const saveName = async ()=>{
-    const res = await useFetch('/api/auth/google/set_user', {
+    const res = await $fetch('/api/auth/google/set_user', {
         method: 'POST',
         body: {
             access_token: useCookie('google_access_token'),

@@ -15,7 +15,7 @@
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
-const roomId = router.currentRoute.value.params.roomId;
+const roomId = router.currentRoute.value.params.id;
 
 import { ref } from 'vue';
 
@@ -23,8 +23,7 @@ const courts = ref([]);
 
 // Fetch courts info using roomId
 const fetchCourts = () => {
-    fetch(`/api/courts?roomId=${roomId}`)
-        .then(response => response.json())
+    $fetch(`/api/courts?roomId=${roomId}`)
         .then(data => {
             courts.value = data;
             fetchCourts();
@@ -43,8 +42,7 @@ const dialog = ref(false);
 const request = ref({})
 
 const fetchJudgeRequest = () => {
-    fetch(`/api/judgeRequest?roomId=${roomId}`)
-        .then(response => response.json())
+    $fetch(`/api/judgeRequest?roomId=${roomId}`)
         .then(data => {
             request.value = data;
             dialog.value = true;
